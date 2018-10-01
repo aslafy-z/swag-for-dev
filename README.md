@@ -19,6 +19,7 @@ Sign up at [https://upscri.be/67d2fa](https://upscri.be/67d2fa) to get early acc
 - [Mullvad](#mullvad-) ![](https://img.shields.io/badge/difficulty-easy-green.svg)
 - [Netlify](#netlify-) ![](https://img.shields.io/badge/difficulty-easy-green.svg)
 - [npm](#npm-) ![](https://img.shields.io/badge/difficulty-hard-red.svg)
+- [WhatIsMyBrowser.com](#whatismybrowsercom) ![](https://img.shields.io/badge/difficulty-easy-green.svg)
 
 ## Alexa ![](https://img.shields.io/badge/difficulty-hard-red.svg)
 
@@ -73,6 +74,12 @@ Sign up at [https://upscri.be/67d2fa](https://upscri.be/67d2fa) to get early acc
 - Fix a [bug](https://github.com/npm/npm/issues), get a fashionable pair of socks! [Reference](http://blog.npmjs.org/post/129827785565/npm-weekly-30-package-scripts-for-tooling-a)
 
 ![](https://partners.npmjs.com/weekly/weekly30/socks-1100x.jpg)
+
+## WhatIsMyBrowser.com ![](https://img.shields.io/badge/difficulty-easy-green.svg)
+
+ - Send an api request, and get some vinyl laptop stickers! For free accounts, send an API call then message them using your new account. [Reference](https://developers.whatismybrowser.com/api/swag/)
+ 
+ ![](https://developers.whatismybrowser.com/static/main/content/api/swag/whatismybrowser-stickers.jpg)
 
 ## Contributing
 
