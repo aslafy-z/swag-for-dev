@@ -32,7 +32,7 @@ const renderSwag = () => {
         })
         .map(item => {
             contentEl.innerHTML += `
-                <div class='item'>
+                <div class='item' tabindex='0'>
                     <div class='title flex'>
                         <h1>${item.name}</h1>
                         <div class='difficulty ${item.difficulty}' title='${item.difficulty} difficulty'></div>
@@ -83,4 +83,20 @@ window.addEventListener('load', () => {
 
     filterInput.addEventListener('input', renderSwag);
     sortingInput.addEventListener('input', renderSwag);
+
+    const gridBoxes = document.querySelectorAll('.item');
+    const gridBoxItems = [].slice.call(gridBoxes);
+    gridBoxItems.forEach(item =>
+        item.addEventListener('keydown', itemKeydownHandler, false)
+    );
 });
+
+const itemKeydownHandler = function (e) {
+    var key = e.which || e.keyCode;
+    switch (key) {
+    case 13: // enter
+        console.log(this);
+        this.querySelector('a').click();
+        break;
+    }
+};

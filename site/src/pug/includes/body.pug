@@ -35,7 +35,7 @@ include ./fork.pug
             - let difficulty;
             each swag in swagList
                 - difficulty = swag.difficulty + ' difficulty';
-                div.item
+                div.item(tabindex=0)
                     div.title.flex
                         h1=swag.name
                         div(class=difficulty title=difficulty)
