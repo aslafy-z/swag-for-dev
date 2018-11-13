@@ -12,6 +12,7 @@ const concat = require('gulp-concat');
 const download = require('gulp-download-stream');
 const responsive = require('gulp-responsive');
 const merge = require('merge-stream');
+const feed = require('@zadkiel/gulp-feed');
 
 const {swagList, swagImages} = require('./get-data');
 
@@ -173,6 +174,52 @@ gulp.task('cachebust', cb => {
 		});
 });
 
+
+const FEED_OPTS = {
+    title: 'devSwag',
+    description: '😎 swag opportunities for developers',
+    id: 'https://devswag.io',
+    link: 'https://devswag.io',
+    image: 'https://devswag.io/assets/img/logo.png',
+    favicon: 'https://devswag.io/assets/img/logo.png',
+    copyright: 'Creative Commons Zero v1.0 Universal',
+    updated: new Date(), // now
+    feedLinks: {
+        rss: 'https://devswag.io/rss',
+        atom: 'https://devswag.io/atom',
+        json: 'https://devswag.io/json'
+    },
+    author: {
+        name: 'swag-for-dev\'s contributors',
+        link: 'https://github.com/swapagarwal/swag-for-dev'
+    }
+};
+
+gulp.task('feed', function() {
+    return feed(swagList, {
+        ...FEED_OPTS,
+        render: {
+            'rss.xml': 'rss2',
+            'atom.xml': 'atom1',
+            'feed.json': 'json1',
+        },
+        formatter: item => ({
+            title: item.name + ' [' + item.tags.join(', ') + ']',
+            id: item.reference,
+            link: item.reference,
+            description: item.description,
+            content: item.content,
+            // author: [{
+            //     name: 'Jane Doe',
+            //     email: 'janedoe@example.com',
+            //     link: 'https://example.com/janedoe'
+            // }],
+            date: new Date(),
+            image: item.realImage,
+        }),
+    }).pipe(gulp.dest('dist/assets/'));
+});
+
 gulp.task('webserver', () => {
 	return gulp.src('dist')
 		.pipe(webserver({
@@ -190,7 +237,7 @@ gulp.task('watch', () => {
 gulp.task('build', gulp.series(
 	'clean',
 	gulp.parallel(
-		gulp.series('swag-img', 'cachebust', 'pug'), 'styl', 'js', 'binaries'
+		gulp.series('swag-img', 'cachebust', 'pug'), 'styl', 'js', 'binaries', 'feed'
 	)
 ));
 

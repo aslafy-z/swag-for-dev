@@ -15,12 +15,13 @@ const swagList = require('./data.json').map(swag => {
 	}
 	// End generate unique filename
 
-	swagImages.push({
-		url: swag.image,
-		file: fileName
-	});
-	swag.image = `/assets/swag-img/${fileName}`;
-	fileNames.push(fileName);
+    swagImages.push({
+        url: swag.image,
+        file: fileName
+    });
+    swag.realImage = swag.image;
+    swag.image = `/assets/swag-img/${fileName}`;
+    fileNames.push(fileName);
 
 	return swag;
 });
