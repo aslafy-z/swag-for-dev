@@ -19,7 +19,6 @@ const swagList = require('./data.json').map(swag => {
         url: swag.image,
         file: fileName
     });
-    swag.realImage = swag.image;
     swag.image = `/assets/swag-img/${fileName}`;
     fileNames.push(fileName);
 
