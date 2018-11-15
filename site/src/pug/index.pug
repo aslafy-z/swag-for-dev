@@ -13,3 +13,10 @@ html(lang='en')
 	script(src='https://unpkg.com/mobius1-selectr@2.4.4/dist/selectr.min.js')
 
 	script(defer src=bustedAssets.js)
+
+	script.
+		if('serviceWorker' in navigator) {
+		navigator.serviceWorker
+				.register('/sw.js')
+				.then(function() { console.log("Service Worker Registered"); });
+		}
