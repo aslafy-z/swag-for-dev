@@ -34,6 +34,10 @@ function handleDifficulty(difficultyChanged) {
         allowDifficultySelect(false);
     }
 
+    if (search && search.has('difficulty')) {
+        search.set('difficulty', value);
+    }
+
     if (difficultyChanged && sortingInput.selectedIndex > 1) {
         sortingInput.selectedIndex = 0;
         return true;
@@ -46,7 +50,7 @@ function handleTags() {
     const tags = selectr.getValue();
 
     if (!tags.length) {
-        history.pushState(null, '', window.location.pathname);
+        // history.pushState(null, '', window.location.pathname);
         return;
     }
 
@@ -57,12 +61,9 @@ function handleTags() {
         }
     });
 
-    if (!search) {
-        return;
+    if (search && search.has('tags')) {
+        search.set('tags', tags.join(' '));
     }
-    search.set('tags', tags.join(' '));
-    const newRelativePathQuery = `${window.location.pathname}?${search.toString()}`;
-    history.pushState(null, '', newRelativePathQuery);
 }
 
 function handleSort() {
@@ -70,6 +71,10 @@ function handleSort() {
         .map(child => contentEl.removeChild(child))
         .sort(sort[sortingInput.value])
         .forEach(sortedChild => contentEl.appendChild(sortedChild));
+
+    if (search && search.has('sorting')) {
+        search.set('sorting', sortingInput.value);
+    }
 }
 
 // The cascade is the function which handles calling filtering and sorting swag
@@ -78,6 +83,12 @@ function cascade(force = false) {
     force |= handleTags(Boolean(this.el));
     if (force || this === sortingInput) {
         handleSort(this === sortingInput);
+    }
+
+    const searchString = search.toString();
+    if (window.location.search !== searchString) {
+        const newRelativePathQuery = `${window.location.pathname}?${searchString}`;
+        history.replaceState(null, '', newRelativePathQuery);
     }
 }
 
@@ -92,6 +103,17 @@ window.addEventListener('load', () => {
         search = new URLSearchParams(window.location.search);
         if (search.has('tags')) {
             selectr.setValue(search.get('tags').split(' '));
+        }
+        if (search.has('difficulty')) {
+            const difficulties = ['alldifficulties', 'easy', 'hard', 'medium'];
+            if (difficulties.includes(search.get('difficulty'))) {
+                filterInput.value = search.get('difficulty');
+            }
+        }
+        if (search.has('sorting')) {
+            if (Object.keys(sort).includes(search.get('sorting'))) {
+                sortingInput.value = search.get('sorting');
+            }
         }
     }
 
