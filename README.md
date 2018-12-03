@@ -26,6 +26,27 @@ As this project is community-driven, it'd be really helpful if you comment on th
 
 Please consider donating to cover up our hosting costs.
 
+## Development
+
+1. Clone this repository by running
+    ```
+    git clone https://github.com/swapagarwal/swag-for-dev.git
+    ```
+1. Ensure you are running an up-to-date version of [Node.js](https://nodejs.org/en/download/package-manager/) on your machine, and that you have npm installed.
+1. Make sure you have [Gulp](https://gulpjs.org/getting-started.html) installed by running
+    ```
+    npm install gulp-cli -g
+    ```
+1. Open a terminal in the `swag-for-dev` directory. Type
+    ```
+    npm install
+    ```
+    into the terminal to install the dependencies. To start the webserver, type
+    ```
+    gulp
+    ```
+1. The website should open in a browser after it compiles, or you can view it by going to http://localhost:8000
+
 ## License
 
 [![CC0](http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
