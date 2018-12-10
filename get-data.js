@@ -22,6 +22,9 @@ const swagList = require('./data.json').map(swag => {
 	swag.image = `/assets/swag-img/${fileName}`;
 	fileNames.push(fileName);
 
+	// Mutate dateAdded to Date object
+	swag.dateAdded = new Date(swag.dateAdded);
+
 	return swag;
 });
 
