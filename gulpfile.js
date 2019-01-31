@@ -28,7 +28,7 @@ const RESIZE_OPTS = {
 	errorOnUnusedConfig: false
 };
 
-const FEED_OPTS = {
+const FEEDS_OPTS = {
 	title: 'devSwag',
 	description: '😎 swag opportunities for developers',
 	id: TARGET_URL,
@@ -198,11 +198,11 @@ gulp.task('cachebust', cb => {
 		});
 });
 
-gulp.task('feed', () => {
-	const orderedSwag = swagList.sort((a, b) => b.dateAdded - a.dateAdded);
+gulp.task('feeds', () => {
+	const orderedSwag = Array.from(swagList).sort((a, b) => b.dateAdded - a.dateAdded);
 
 	return feed(orderedSwag, {
-		...FEED_OPTS,
+		...FEEDS_OPTS,
 		render: {
 			'rss.xml': 'rss2',
 			'atom.xml': 'atom1',
@@ -215,7 +215,7 @@ gulp.task('feed', () => {
 			description: item.description,
 			// Categories: item.tags,
 			// content: item.content,
-			author: [FEED_OPTS.author],
+			author: [FEEDS_OPTS.author],
 			date: item.dateAdded,
 			image: `${TARGET_URL}${item.image}`
 		})
@@ -240,15 +240,15 @@ gulp.task('watch', () => {
 });
 
 gulp.task('build', gulp.series(
-    'clean',
-    gulp.parallel(
-        gulp.series('swag-img', 'cachebust',
-            gulp.parallel('pug', 'feed')
-        ),
-        'styl',
-        'js',
-        'binaries'
-    )
+	'clean',
+	gulp.parallel(
+		gulp.series('swag-img', 'cachebust',
+			gulp.parallel('pug', 'feeds')
+		),
+		'styl',
+		'js',
+		'binaries'
+	)
 ));
 
 gulp.task('default', gulp.series('build', 'webserver', 'watch'));
